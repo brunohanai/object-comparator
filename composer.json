@@ -1,0 +1,24 @@
+{
+  "name": "brunohanai/object-comparator",
+  "type": "library",
+  "description": "Compara dois objetos e verifica se há alterações em alguma de suas propriedades.",
+  "keywords": ["comparison", "differ", "comparator"],
+  "homepage": "https://bitbucket.org/brunohanai/object-comparator",
+  "license": "?",
+  "authors": [
+    {
+      "name": "Bruno Hanai",
+      "email": "bruno.hanai@gmail.com",
+      "homepage": "https://bitbucket.org/brunohanai",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "ObjectComparator": "src"
+    }
+  }
+}
