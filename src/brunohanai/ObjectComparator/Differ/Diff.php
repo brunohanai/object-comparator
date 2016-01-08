@@ -21,23 +21,28 @@ class Diff
         $this->value2 = $value_2;
     }
 
-    public function getArrayCopy()
+    public function getArrayCopy($slim_version = false)
     {
-        $array = array(
+        if ($slim_version === true) {
+            return array(
+                $this->property => array($this->value1, $this->value2)
+            );
+        }
+
+        return $array = array(
             self::KEY => array(
-                self::PROPERTY_KEY => $this->property, self::VALUES_KEY => array(
+                self::PROPERTY_KEY => $this->property,
+                self::VALUES_KEY => array(
                     self::VALUE_1_KEY => $this->value1,
                     self::VALUE_2_KEY => $this->value2,
                 )
             )
         );
-
-        return $array;
     }
 
-    public function printAsJson()
+    public function printAsJson($slim_version = false)
     {
-        return json_encode($this->getArrayCopy());
+        return json_encode($this->getArrayCopy($slim_version));
     }
 
     /**

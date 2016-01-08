@@ -4,7 +4,7 @@ namespace brunohanai\ObjectComparator\Differ;
 
 class DiffTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructor()
+    public function testConstructor_shouldSetProperties()
     {
         $property = 'descricao';
         $value1 = 'Hosanna';
@@ -17,7 +17,7 @@ class DiffTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value2, $diff->getValue2());
     }
 
-    public function testWithCommonValues()
+    public function testGetArrayCopy_notUsingSlimVersion_shouldReturnCompleteArray()
     {
         $property = 'descricao';
         $value1 = 'Hosanna';
@@ -25,47 +25,57 @@ class DiffTest extends \PHPUnit_Framework_TestCase
 
         $diff = new Diff($property, $value1, $value2);
 
-        $expected = '{"property":"descricao","change":{"value1":"Hosanna","value2":"Hosanna Tecnologia"}}';
-
-        $this->assertEquals($expected, $diff->printAsJson());
+        $expectedArray = array(
+            Diff::KEY => array(
+                Diff::PROPERTY_KEY => $property,
+                Diff::VALUES_KEY => array(
+                    Diff::VALUE_1_KEY => $value1,
+                    Diff::VALUE_2_KEY => $value2,
+                ),
+            ),
+        );
+        $this->assertEquals($expectedArray, $diff->getArrayCopy());
     }
 
-    public function testWithValue1Null()
+    public function testGetArrayCopy_usingSlimVersion_shouldReturnSimpleArray()
     {
         $property = 'descricao';
-        $value1 = null;
+        $value1 = 'Hosanna';
         $value2 = 'Hosanna Tecnologia';
 
         $diff = new Diff($property, $value1, $value2);
 
-        $expected = '{"property":"descricao","change":{"value1":null,"value2":"Hosanna Tecnologia"}}';
-
-        $this->assertEquals($expected, $diff->printAsJson());
+        $expectedArray = array($property => array($value1, $value2));
+        $this->assertEquals($expectedArray, $diff->getArrayCopy(true));
     }
 
-    public function testWithValue2Null()
+    public function testPrintAsJson_notUsingSlimVersion_shouldReturnCompleteJson()
     {
         $property = 'descricao';
         $value1 = 'Hosanna';
-        $value2 = null;
+        $value2 = 'Hosanna Tecnologia';
 
         $diff = new Diff($property, $value1, $value2);
 
-        $expected = '{"property":"descricao","change":{"value1":"Hosanna","value2":null}}';
+        $expectedJson = sprintf(
+            '{"%s":{"%s":"%s","%s":{"%s":"%s","%s":"%s"}}}',
+            Diff::KEY, Diff::PROPERTY_KEY, $property,
+            Diff::VALUES_KEY, Diff::VALUE_1_KEY, $value1, Diff::VALUE_2_KEY, $value2
+        );
 
-        $this->assertEquals($expected, $diff->printAsJson());
+        $this->assertEquals($expectedJson, $diff->printAsJson());
     }
 
-    public function testWithValue1AndValue2Null()
+    public function testPrintAsJson_usingSlimVersion_shouldReturnSimpleJson()
     {
         $property = 'descricao';
-        $value1 = null;
-        $value2 = null;
+        $value1 = 'Hosanna';
+        $value2 = 'Hosanna Tecnologia';
 
         $diff = new Diff($property, $value1, $value2);
 
-        $expected = '{"property":"descricao","change":{"value1":null,"value2":null}}';
+        $expectedJson = sprintf('{"%s":["%s","%s"]}', $property, $value1, $value2);
 
-        $this->assertEquals($expected, $diff->printAsJson());
+        $this->assertEquals($expectedJson, $diff->printAsJson(true));
     }
 }
