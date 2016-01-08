@@ -6,6 +6,8 @@ class DiffCollection
 {
     const KEY = 'diff_collection';
     const EXTRAS_KEY = 'extras';
+    const EXTRA_DEFAULT_OBJECT = 'object';
+    const EXTRA_DEFAULT_DATETIME = 'diff_datetime';
     const DIFFS_KEY = 'diffs';
 
     private $extras;

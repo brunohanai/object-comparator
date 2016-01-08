@@ -6,7 +6,7 @@ class Diff
 {
     const KEY = 'diff';
     const PROPERTY_KEY = 'property';
-    const CHANGE_KEY = 'change';
+    const VALUES_KEY = 'values';
     const VALUE_1_KEY = 'value1';
     const VALUE_2_KEY = 'value2';
 
@@ -25,7 +25,7 @@ class Diff
     {
         $array = array(
             self::KEY => array(
-                self::PROPERTY_KEY => $this->property, self::CHANGE_KEY => array(
+                self::PROPERTY_KEY => $this->property, self::VALUES_KEY => array(
                     self::VALUE_1_KEY => $this->value1,
                     self::VALUE_2_KEY => $this->value2,
                 )
