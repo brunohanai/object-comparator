@@ -2,10 +2,26 @@
 
 namespace brunohanai\ObjectComparator;
 
+use brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException;
+
 class Comparator
 {
-    public function compare($object_1, $object_2)
+    public function isEquals($object_1, $object_2)
     {
+        return $this->compare($object_1, $object_2);
+    }
+
+    public function isNotEquals($object_1, $object_2)
+    {
+        return !$this->compare($object_1, $object_2);
+    }
+
+    protected function compare($object_1, $object_2)
+    {
+        if ($this->isValidForComparison($object_1, $object_2) === false) {
+            throw new ObjectsNotValidForComparisonException();
+        };
+
         $array_1 = (array)$object_1;
         $array_2 = (array)$object_2;
 
@@ -18,26 +34,20 @@ class Comparator
         return true;
     }
 
-    public function isEquals($object_1, $object_2)
+    protected function isValidForComparison($object_1, $object_2)
     {
-        return $this->compare($object_1, $object_2);
-    }
+        if (!is_object($object_1)) {
+            return false;
+        }
 
-    public function isNotEquals($object_1, $object_2)
-    {
-        return !$this->compare($object_1, $object_2);
-    }
+        if (!is_object($object_2)) {
+            return false;
+        }
 
-    public function valida()
-    {
-//        if (!is_object($object_1) || !is_object($object_2)) {
-//            throw new \Exception('ObjectComparator: $object_1 e $object_2 precisam ser objetos.');
-//        }
-//
-//        if (get_class($object_1) != get_class($object_2)) {
-//            throw new \Exception(sprintf(
-//                'ObjectComparator: A classe do $object_1(%s) não é igual ao $object_2(%s)', get_class($object_1), get_class($object_2)
-//            ));
-//        }
+        if (get_class($object_1) != get_class($object_2)) {
+            return false;
+        }
+
+        return true;
     }
 }

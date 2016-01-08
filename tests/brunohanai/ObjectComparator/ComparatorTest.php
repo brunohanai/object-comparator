@@ -2,8 +2,11 @@
 
 namespace brunohanai\ObjectComparator;
 
+use brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException;
+
 class ComparatorTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var $comparator Comparator */
     private $comparator;
 
     public function setUp()
@@ -22,23 +25,48 @@ class ComparatorTest extends \PHPUnit_Framework_TestCase
         return $empresa;
     }
 
-    public function testCompareWithEquals_shouldReturnTrue()
+    /**
+     * @expectedException brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException
+     */
+    public function testIsValidForComparison_withDifferentTypeObjects_shouldThrowAnException()
     {
-        $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
-        $empresa2 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
+        $empresa = $this->createEmpresa(1);
+        $datetime = new \DateTime('now');
 
-        $this->assertTrue($this->comparator->compare($empresa1, $empresa2));
+        $this->comparator->isEquals($empresa, $datetime);
     }
 
-    public function testCompareWithDifferentObjects_shouldReturnFalse()
+    /**
+     * @expectedException brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException
+     */
+    public function testIsValidForComparison_withFirstParameterIncorrect_shouldThrowAnException()
     {
-        $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
-        $empresa2 = $this->createEmpresa(1, 'Hosanna Tecnologia', 'HTC', 10001);
+        $empresa1 = array('a, b, c');
+        $empresa2 = $this->createEmpresa(2);
 
-        $this->assertFalse($this->comparator->compare($empresa1, $empresa2));
+        $this->comparator->isEquals($empresa1, $empresa2);
     }
 
-    public function testIsEqualsWithEquals_shouldReturnTrue()
+    /**
+     * @expectedException brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException
+     */
+    public function testIsValidForComparison_withSecondParameterIncorrect_shouldThrowAnException()
+    {
+        $empresa1 = $this->createEmpresa(1);
+        $empresa2 = 'objeto2';
+
+        $this->comparator->isEquals($empresa1, $empresa2);
+    }
+
+    public function testIsValidForComparison_withEqualTypeObjects_shouldThrowNothing()
+    {
+        $empresa1 = $this->createEmpresa(1);
+        $empresa2 = $this->createEmpresa(2);
+
+        $this->comparator->isEquals($empresa1, $empresa2);
+    }
+
+    public function testIsEquals_withEquals_shouldReturnTrue()
     {
         $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
         $empresa2 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
@@ -46,15 +74,15 @@ class ComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->comparator->isEquals($empresa1, $empresa2));
     }
 
-    public function testIsEqualsWithNotEquals_shouldReturnTrue()
+    public function testIsEquals_withNotEquals_shouldReturnFalse()
     {
         $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
-        $empresa2 = $this->createEmpresa(1, 'Hosanna Tecnologia', 'HTC', 10001);
+        $empresa2 = $this->createEmpresa(1, 'Hosanna Tech', 'HTC', 10001);
 
         $this->assertFalse($this->comparator->isEquals($empresa1, $empresa2));
     }
 
-    public function testIsNotEqualsWithEquals_shouldReturnFalse()
+    public function testIsNotEquals_withEquals_shouldReturnFalse()
     {
         $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
         $empresa2 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
@@ -62,10 +90,10 @@ class ComparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->comparator->isNotEquals($empresa1, $empresa2));
     }
 
-    public function testIsNotEqualsWithNotEquals_shouldReturnTrue()
+    public function testIsNotEquals_withNotEquals_shouldReturnTrue()
     {
         $empresa1 = $this->createEmpresa(1, 'Hosanna', 'HOS', 10001);
-        $empresa2 = $this->createEmpresa(1, 'Hosanna Tecnologia', 'HTC', 10001);
+        $empresa2 = $this->createEmpresa(1, 'Hosanna Tech', 'HTC', 10001);
 
         $this->assertTrue($this->comparator->isNotEquals($empresa1, $empresa2));
     }
