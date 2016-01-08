@@ -5,65 +5,38 @@ namespace brunohanai\ObjectComparator\Differ;
 class DiffCollection
 {
     const KEY = 'diff_collection';
-    const EXTRAS_KEY = 'extras';
-    const EXTRA_DEFAULT_OBJECT = 'object';
-    const EXTRA_DEFAULT_DATETIME = 'diff_datetime';
     const DIFFS_KEY = 'diffs';
 
-    private $extras;
     private $diffs;
 
-    public function __construct($extras = array())
+    public function __construct()
     {
-        $this->extras = new \ArrayIterator($extras);
         $this->diffs = new \ArrayIterator();
     }
 
-    public function getArrayCopy()
+    public function getArrayCopy($slim_version = false)
     {
-        $array = array(
-            self::KEY => array(
-                self::EXTRAS_KEY => $this->extras->getArrayCopy(),
-                self::DIFFS_KEY => array(),
-            ),
-        );
-
         $diffs = array();
 
         /** @var $diff Diff */
         foreach($this->diffs as $diff) {
-            $diffs[] = $diff->getArrayCopy();
+            $diffs[] = $diff->getArrayCopy($slim_version);
         }
 
-        $array[self::KEY][self::DIFFS_KEY] = $diffs;
-
-        return $array;
-    }
-
-    public function printAsJson()
-    {
-        return json_encode($this->getArrayCopy());
-    }
-
-    public function addExtra($key, $value)
-    {
-        $this->extras->offsetSet($key, $value);
-
-        return $this;
-    }
-
-    public function getExtra($key)
-    {
-        if ($this->extras->offsetExists($key) === false) {
-            return null;
+        if ($slim_version === false) {
+            return array(
+                self::KEY => array(
+                    self::DIFFS_KEY => $diffs
+                )
+            );
         }
 
-        return $this->extras->offsetGet($key);
+        return $diffs;
     }
 
-    public function getExtras()
+    public function printAsJson($slim_version = false)
     {
-        return $this->extras;
+        return json_encode($this->getArrayCopy($slim_version));
     }
 
     public function addDiff(Diff $diff)
