@@ -1,44 +1,43 @@
 <?php
+
 namespace brunohanai\ObjectComparator;
 
 class Comparator
 {
-    private $logger;
-
-//    public function __construct(ILogger $logger)
-//    {
-//        $this->logger = $logger;
-//    }
-
-    public function diff($old_object, $new_object)
+    public function compare($object_1, $object_2)
     {
-        $old = (array)$old_object;
-        $new = (array)$new_object;
+        $array_1 = (array)$object_1;
+        $array_2 = (array)$object_2;
 
-//        $diffs = new DiffCollection($old_object);
+        $comparison = array_diff_assoc($array_1, $array_2);
 
-        $comparison = array_diff_assoc($old, $new);
-
-        foreach($comparison as $key => $value) {
-            $diff = new Diff(
-                $this->clearKey($old_object, $key),
-                $value,
-                $new[$key]
-            );
-
-            $diffs->getDiffs()->append($diff);
+        if (count($comparison) > 0) {
+            return false;
         }
 
-        $this->logger->log($diffs);
+        return true;
     }
 
-    public function clearKey($old_object, $key)
+    public function isEquals($object_1, $object_2)
     {
-        /*
-         * Exemplo:
-         * - de:   CallEmpresaConfAutoactive
-         * - para: active (com trim())
-         */
-        return trim(str_replace(sprintf('%sAuto', get_class($old_object)), '', $key));
+        return $this->compare($object_1, $object_2);
+    }
+
+    public function isNotEquals($object_1, $object_2)
+    {
+        return !$this->compare($object_1, $object_2);
+    }
+
+    public function valida()
+    {
+//        if (!is_object($object_1) || !is_object($object_2)) {
+//            throw new \Exception('ObjectComparator: $object_1 e $object_2 precisam ser objetos.');
+//        }
+//
+//        if (get_class($object_1) != get_class($object_2)) {
+//            throw new \Exception(sprintf(
+//                'ObjectComparator: A classe do $object_1(%s) não é igual ao $object_2(%s)', get_class($object_1), get_class($object_2)
+//            ));
+//        }
     }
 }
