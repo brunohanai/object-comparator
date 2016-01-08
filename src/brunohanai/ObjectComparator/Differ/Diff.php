@@ -33,7 +33,7 @@ class Diff
             );
         }
 
-        return $array = array(
+        return array(
             self::KEY => array(
                 self::OBJECT_KEY => $this->object,
                 self::PROPERTY_KEY => $this->property,
