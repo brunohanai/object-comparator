@@ -19,7 +19,7 @@ class Differ
             $diff = new Diff(
                 $this->clearKey($object_1, $key),
                 $value,
-                $array_1[$key]
+                $array_2[$key]
             );
 
             $diffs->addDiff($diff);
