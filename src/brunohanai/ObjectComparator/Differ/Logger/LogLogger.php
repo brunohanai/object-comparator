@@ -3,7 +3,6 @@
 namespace brunohanai\ObjectComparator\Differ\Logger;
 
 use brunohanai\ObjectComparator\Differ\DiffCollection;
-use brunohanai\ObjectComparator\Logger\ILogger;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 

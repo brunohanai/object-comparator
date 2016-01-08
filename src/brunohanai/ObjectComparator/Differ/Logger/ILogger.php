@@ -1,6 +1,6 @@
 <?php
 
-namespace brunohanai\ObjectComparator\Logger;
+namespace brunohanai\ObjectComparator\Differ\Logger;
 
 use brunohanai\ObjectComparator\Differ\DiffCollection;
 use Psr\Log\LogLevel;
