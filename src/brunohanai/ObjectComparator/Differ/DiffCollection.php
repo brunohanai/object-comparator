@@ -26,12 +26,12 @@ class DiffCollection
         if ($slim_version === false) {
             return array(
                 self::KEY => array(
-                    self::DIFFS_KEY => $diffs
+                    self::DIFFS_KEY => $this->normalizeDiffs($diffs)
                 )
             );
         }
 
-        return $diffs;
+        return $this->normalizeDiffs($diffs);
     }
 
     public function printAsJson($slim_version = false)
@@ -49,5 +49,10 @@ class DiffCollection
     public function getDiffs()
     {
         return $this->diffs;
+    }
+
+    protected function normalizeDiffs($diffs = array())
+    {
+        return count($diffs) === 0 ? null : $diffs;
     }
 }

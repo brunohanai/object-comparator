@@ -6,6 +6,8 @@ class DiffCollectionTest extends \PHPUnit_Framework_TestCase
 {
     /** @var DiffCollection */
     private $defaultCollection;
+    /** @var DiffCollection */
+    private $nullCollection;
     private $object;
     private $property;
     private $value1_1;
@@ -26,6 +28,8 @@ class DiffCollectionTest extends \PHPUnit_Framework_TestCase
         $this->defaultCollection = new DiffCollection();
         $this->defaultCollection->addDiff(new Diff($this->object, $this->property, $this->value1_1, $this->value1_2));
         $this->defaultCollection->addDiff(new Diff($this->object, $this->property, $this->value2_1, $this->value2_2));
+
+        $this->nullCollection = new DiffCollection();
     }
 
     public function testAddDiff()
@@ -95,5 +99,21 @@ class DiffCollectionTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expectedJson, $this->defaultCollection->printAsJson());
+    }
+
+    public function testPrintAsJson_withoutDiffs_notUsingSlimVersion_shouldReturnJsonWithNull()
+    {
+        $expectedJson = sprintf('{"%s":{"%s":null}}',
+            DiffCollection::KEY, DiffCollection::DIFFS_KEY
+        );
+
+        $this->assertEquals($expectedJson, $this->nullCollection->printAsJson());
+    }
+
+    public function testPrintAsJson_withoutDiffs_usingSlimVersion_shouldReturnJsonWithNull()
+    {
+        $expectedJson = 'null';
+
+        $this->assertEquals($expectedJson, $this->nullCollection->printAsJson(true));
     }
 }
