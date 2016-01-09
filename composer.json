@@ -2,7 +2,7 @@
   "name": "brunohanai/object-comparator",
   "type": "library",
   "description": "Compara dois objetos e verifica se existe diferença entre eles.",
-  "keywords": ["comparison", "differ", "comparator"],
+  "keywords": ["comparison", "differ", "comparator", "brunohanai"],
   "homepage": "https://github.com/brunohanai/object-comparator",
   "license": "MIT",
   "authors": [
