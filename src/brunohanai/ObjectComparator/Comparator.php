@@ -34,7 +34,7 @@ class Comparator
         return true;
     }
 
-    protected function isValidForComparison($object_1, $object_2)
+    public function isValidForComparison($object_1, $object_2)
     {
         if (!is_object($object_1)) {
             return false;

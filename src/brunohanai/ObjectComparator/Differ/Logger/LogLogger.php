@@ -15,8 +15,8 @@ class LogLogger implements ILogger
         $this->logger = $logger;
     }
 
-    public function log(DiffCollection $diffs, $level = LogLevel::DEBUG)
+    public function log(DiffCollection $diffs, $slim_version = false, $level = LogLevel::DEBUG)
     {
-        $this->logger->log($level, $diffs->printAsJson());
+        $this->logger->log($level, $diffs->printAsJson($slim_version));
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "brunohanai/object-comparator",
   "type": "library",
-  "description": "Compara dois objetos e verifica se há alterações em alguma de suas propriedades.",
+  "description": "Compara dois objetos e verifica se existe diferença entre eles.",
   "keywords": ["comparison", "differ", "comparator"],
   "homepage": "https://bitbucket.org/brunohanai/object-comparator",
   "license": "?",
@@ -18,7 +18,8 @@
     "psr/log": "~1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.8.21"
+    "phpunit/phpunit": "4.8.21",
+    "mockery/mockery": "0.9.4"
   },
   "autoload": {
     "psr-0": {

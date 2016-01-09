@@ -7,5 +7,5 @@ use Psr\Log\LogLevel;
 
 interface ILogger
 {
-    public function log(DiffCollection $diffs, $level = LogLevel::DEBUG);
+    public function log(DiffCollection $diffs, $slim_version = false, $level = LogLevel::DEBUG);
 }

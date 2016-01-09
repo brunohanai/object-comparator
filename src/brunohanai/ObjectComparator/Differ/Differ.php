@@ -2,33 +2,45 @@
 
 namespace brunohanai\ObjectComparator\Differ;
 
+use brunohanai\ObjectComparator\Comparator;
+use brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException;
+
 class Differ
 {
+    private $comparator;
+
+    public function __construct(Comparator $comparator)
+    {
+        $this->comparator = $comparator;
+    }
+
     public function diff($object_1, $object_2)
     {
+        if ($this->comparator->isValidForComparison($object_1, $object_2) === false) {
+            throw new ObjectsNotValidForComparisonException();
+        };
+
         $diffs = new DiffCollection();
-        $diffs->addExtra(DiffCollection::EXTRA_DEFAULT_OBJECT, get_class($object_1));
-        $diffs->addExtra(DiffCollection::EXTRA_DEFAULT_DATETIME, date('Y-m-d H:i:s'));
 
         $array_1 = (array)$object_1;
         $array_2 = (array)$object_2;
 
+
         $comparison = array_diff_assoc($array_1, $array_2);
 
         foreach($comparison as $key => $value) {
-            $diff = new Diff(
+            $diffs->addDiff(new Diff(
+                get_class($object_1),
                 $this->clearKey($object_1, $key),
                 $value,
                 $array_2[$key]
-            );
-
-            $diffs->addDiff($diff);
+            ));
         }
 
         return $diffs;
     }
 
-    public function clearKey($object, $key)
+    protected function clearKey($object, $key)
     {
         /*
          * Exemplo:
