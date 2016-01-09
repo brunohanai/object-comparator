@@ -1,15 +1,15 @@
-{
+  {
   "name": "brunohanai/object-comparator",
   "type": "library",
   "description": "Compara dois objetos e verifica se existe diferença entre eles.",
   "keywords": ["comparison", "differ", "comparator"],
-  "homepage": "https://bitbucket.org/brunohanai/object-comparator",
-  "license": "?",
+  "homepage": "https://github.com/brunohanai/object-comparator",
+  "license": "MIT",
   "authors": [
     {
       "name": "Bruno Hanai",
       "email": "bruno.hanai@gmail.com",
-      "homepage": "https://bitbucket.org/brunohanai",
+      "homepage": "https://github.com/brunohanai",
       "role": "Developer"
     }
   ],
