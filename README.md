@@ -1,8 +1,8 @@
 # ObjectComparator [![Build Status](https://travis-ci.org/brunohanai/object-comparator.svg)](https://travis-ci.org/brunohanai/object-comparator)
 
-<!--[![Total Downloads](https://img.shields.io/packagist/dt/monolog/monolog.svg)](https://packagist.org/packages/monolog/monolog)-->
-<!--[![Latest Stable Version](https://img.shields.io/packagist/v/monolog/monolog.svg)](https://packagist.org/packages/monolog/monolog)-->
-<!--[![Reference Status](https://www.versioneye.com/php/monolog:monolog/reference_badge.svg)](https://www.versioneye.com/php/monolog:monolog/references)-->
+[![Total Downloads](https://img.shields.io/packagist/dt/brunohanai/object-comparator.svg)](https://packagist.org/packages/brunohanai/object-comparator)
+[![Latest Stable Version](https://img.shields.io/packagist/v/brunohanai/object-comparator.svg)](https://packagist.org/packages/brunohanai/object-comparator)
+[![Reference Status](https://www.versioneye.com/php/brunohanai:object-comparator/reference_badge.svg)](https://www.versioneye.com/php/brunohanai:object-comparator/references)
 
 > **Atenção: esse componente foi desenvolvido para meu aprendizado e não deve ser considerado confiável. Use-o a seu critério.** 
 
