@@ -44,8 +44,8 @@ $object2->description = 'Description';
 $object2->code = 'DESC';
 
 // compare
-$comparator->isEquals($object1, $object2)); // outputs true
-$comparator->isNotEquals($object1, $object2)); // outputs false
+var_dump($comparator->isEquals($object1, $object2)); // outputs true
+var_dump($comparator->isNotEquals($object1, $object2)); // outputs false
 
 
 // change one property
