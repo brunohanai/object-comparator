@@ -34,7 +34,7 @@ class Comparator
      * @version v1.0.0
      * @since   v1.0.0
      *
-     * @uses self::isValidForComparison
+     * @uses self::compare()
      *
      */
     public function isEquals($object_1, $object_2)
@@ -54,7 +54,7 @@ class Comparator
      * @version v1.0.0
      * @since   v1.0.0
      *
-     * @uses self::isValidForComparison
+     * @uses self::compare()
      *
      */
     public function isNotEquals($object_1, $object_2)
