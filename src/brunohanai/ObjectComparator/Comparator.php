@@ -16,8 +16,6 @@ use brunohanai\ObjectComparator\Exceptions\ObjectsNotValidForComparisonException
  *
  * Fornece métodos para comparação de dois objetos.
  *
- * @api
- *
  * @example examples/example1.php
  *
  */
