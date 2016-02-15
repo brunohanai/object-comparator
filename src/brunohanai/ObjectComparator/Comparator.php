@@ -3,6 +3,7 @@
  * Esse arquivo faz parte do projeto ObjectComparator.
  *
  * @author Bruno Hanai
+ * @link https://github.com/brunohanai/object-comparator
  *
  */
 
